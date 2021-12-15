@@ -1,8 +1,14 @@
 # Spotify Clone 
-## Created using React, NextJS, NextAuth, Tailwind CSS and Spotify API
-
+## Created using:
+* **React.js**
+* **Next.js**
+* **NextAuth**
+* **Recoil**
+* **Tailwind CSS**
+* **Spotify API**
 ## Preview
-
+![Alt text](/public/img/preview-1.jpg)
+![Alt text](/public/img/preview-2.jpg)
 
 ## How to use
 ```
