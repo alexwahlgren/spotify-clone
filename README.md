@@ -7,7 +7,7 @@
 * **Tailwind CSS**
 * **Spotify API**
 ## Preview
-![Alt text](/public/img/preview-1.jpg)
+![Alt text](/public/img/preview-1.JPG)
 ![Alt text](/public/img/preview-2.jpg)
 
 ## How to use
