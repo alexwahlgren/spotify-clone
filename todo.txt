@@ -1,0 +1,5 @@
+TODOS: 
+
+* Style volume bar
+* Implement search
+* Implement player time-bar

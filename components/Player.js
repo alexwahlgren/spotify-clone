@@ -27,14 +27,20 @@ function Player() {
 		useRecoilState(currentTrackIdState);
 	const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
 	const [volume, setVolume] = useState(50);
-
 	const songInfo = useSongInfo();
+
+	// Init spotify player
+	if (typeof window !== "undefined") {
+		window.onSpotifyWebPlaybackSDKReady = () => {
+			initSpotifyPlayer(spotifyApi.getAccessToken(), spotifyApi);
+		};
+	}
 
 	const fetchCurrentSong = () => {
 		if (!songInfo) {
 			spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-				console.log("data: ", data);
-				console.log("Now playing: ", data.body?.item.id);
+				// console.log("data: ", data);
+				// console.log("Now playing: ", data.body?.item.id);
 				setCurrentTrackId(data.body?.item?.id);
 
 				spotifyApi.getMyCurrentPlaybackState().then((data) => {
@@ -64,7 +70,7 @@ function Player() {
 	}, [currentTrackIdState, spotifyApi, session]);
 
 	useEffect(() => {
-		if (volume > 0 && volume < 100) {
+		if (songInfo && volume > 0 && volume < 100) {
 			debouncedAdjustVolume(volume);
 		}
 	}, [volume]);
@@ -124,7 +130,7 @@ function Player() {
 					className="button"
 				/>
 				<input
-					className="w-14 md:w-28"
+					className="w-14 md:w-28 appearance-none"
 					type="range"
 					value={volume}
 					onChange={(e) => setVolume(Number(e.target.value))}
@@ -139,5 +145,44 @@ function Player() {
 		</div>
 	);
 }
+
+const initSpotifyPlayer = (token, spotifyApi) => {
+	const _player = new window.Spotify.Player({
+		name: "spotify-clone",
+		getOAuthToken: (cb) => cb(token),
+	});
+	// Error handling
+	_player.addListener("initialization_error", ({ message }) => {
+		console.error(message);
+	});
+	_player.addListener("authentication_error", ({ message }) => {
+		console.error(message);
+	});
+	_player.addListener("account_error", ({ message }) => {
+		console.error(message);
+	});
+	_player.addListener("playback_error", ({ message }) => {
+		console.error(message);
+	});
+
+	// Playback status updates
+	// _player.addListener("player_state_changed", (state) => {
+	// 	console.log(state);
+	// });
+
+	// Ready
+	_player.addListener("ready", ({ device_id }) => {
+		spotifyApi.transferMyPlayback([device_id]);
+		// console.log(_player);
+	});
+
+	// Not Ready
+	_player.addListener("not_ready", ({ device_id }) => {
+		console.log("Device ID has gone offline", device_id);
+	});
+
+	// Connect to the player!
+	_player.connect();
+};
 
 export default Player;
