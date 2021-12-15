@@ -130,7 +130,7 @@ function Player() {
 					className="button"
 				/>
 				<input
-					className="w-14 md:w-28 appearance-none"
+					className="w-14 md:w-28 h-0.5 bg-grey rounded outline-none slider-thumb"
 					type="range"
 					value={volume}
 					onChange={(e) => setVolume(Number(e.target.value))}
