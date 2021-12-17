@@ -1,4 +1,6 @@
 # Spotify Clone 
+# Preview website
+The clone is available live on [spotifyclone.alexwahlgren.se](spotifyclone.alexwahlgren.se)
 ## Created using:
 * **React.js**
 * **Next.js**
@@ -6,7 +8,7 @@
 * **Recoil**
 * **Tailwind CSS**
 * **Spotify API**
-## Preview
+## Showcase
 ![Alt text](/public/img/preview-1.JPG)
 ![Alt text](/public/img/preview-2.jpg)
 

@@ -1,5 +1,7 @@
 TODOS: 
-
+¨
+* Make mobile friendly
+* favicon
 * Style volume bar
 * Implement search
 * Implement player time-bar
